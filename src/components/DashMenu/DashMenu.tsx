@@ -1,15 +1,25 @@
 import { HomeOutlined, NotificationsOutlined, SettingsOutlined } from '@mui/icons-material';
 import { Box, Drawer, List, ListItem } from '@mui/material';
-import { DashButton } from './components/DashButton';
+import { DashButton } from './components/DashButton/DashButton';
+import { HomePopover } from './components/popovers/HomePopover/HomePopover';
+import { SettingsPopover } from './components/popovers/SettingsPopover/SettingsPopover';
 
 const dashMenuOptions = [
     {
         title: "Home",
-        renderDashButton: (handleClick: () => void) => <DashButton onClick={handleClick}><HomeOutlined htmlColor='white' fontSize='large' /></DashButton>,
+        renderDashButton: (handleClick: () => void) =>
+            <HomePopover
+                handleFinish={handleClick}
+                renderOpenButton={(onClick) => <DashButton onClick={onClick}><HomeOutlined htmlColor='white' fontSize='large' /></DashButton>}
+            />,
     },
     {
         title: "Settings",
-        renderDashButton: (handleClick: () => void) => <DashButton onClick={handleClick}><SettingsOutlined htmlColor='white' fontSize='large' /></DashButton>,
+        renderDashButton: (handleClick: () => void) =>
+            <SettingsPopover
+                handleFinish={handleClick}
+                renderOpenButton={(onClick) => <DashButton onClick={onClick}><SettingsOutlined htmlColor='white' fontSize='large' /></DashButton>}
+            />,
     },
     {
         title: "Notifications",
