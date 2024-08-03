@@ -1,5 +1,7 @@
 import { HomeOutlined, NotificationsOutlined, SettingsOutlined } from '@mui/icons-material';
 import { Box, Drawer, List, ListItem } from '@mui/material';
+import { Outlet, useNavigate } from 'react-router';
+import { appRoutes } from '../../router/appRoutes';
 import { DashButton } from './components/DashButton/DashButton';
 import { HomePopover } from './components/popovers/HomePopover/HomePopover';
 import { SettingsPopover } from './components/popovers/SettingsPopover/SettingsPopover';
@@ -12,6 +14,7 @@ const dashMenuOptions = [
                 handleFinish={handleClick}
                 renderOpenButton={(onClick) => <DashButton onClick={onClick}><HomeOutlined htmlColor='white' fontSize='large' /></DashButton>}
             />,
+        path: appRoutes.HOME,
     },
     {
         title: "Settings",
@@ -20,17 +23,21 @@ const dashMenuOptions = [
                 handleFinish={handleClick}
                 renderOpenButton={(onClick) => <DashButton onClick={onClick}><SettingsOutlined htmlColor='white' fontSize='large' /></DashButton>}
             />,
+        path: appRoutes.SETTINGS,
     },
     {
         title: "Notifications",
         renderDashButton: (handleClick: () => void) => <DashButton onClick={handleClick}><NotificationsOutlined htmlColor='white' fontSize='large' /></DashButton>,
+        path: appRoutes.NOTIFICATIONS,
     }
 ]
 
 export const DashMenu = () => {
 
-    const handleClickButton = () => {
-        console.log("CLICK")
+    const navigate = useNavigate();
+
+    const handleNavigate = (path: string) => {
+        navigate(path)
     }
 
     return (
@@ -43,12 +50,15 @@ export const DashMenu = () => {
                     {
                         dashMenuOptions.map(ctOption =>
                             <ListItem key={ctOption.title} disableGutters sx={{ width: "fit-content" }}>
-                                {ctOption.renderDashButton(handleClickButton)}
+                                {ctOption.renderDashButton(() => handleNavigate(ctOption.path))}
                             </ListItem>
                         )
                     }
                 </List>
             </Drawer>
+            <Box sx={{ ml: "70px", bgcolor: "red" }}>
+                <Outlet></Outlet>
+            </Box>
         </Box >
     )
 }

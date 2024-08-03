@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 import { Box, Typography } from '@mui/material';
-import { StepsTutorialPopover } from '../../StepsTutorialPopover/StepsTutorialPopover';
+import { StepsTutorialPopover } from '../../../../StepsTutorialPopover/StepsTutorialPopover';
 
 interface Props {
     handleFinish: () => void;
