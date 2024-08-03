@@ -34,6 +34,7 @@ export const SettingsPopover = ({ handleFinish, renderOpenButton }: Props) => {
             handleFinish={handleFinish}
             arrStepsContent={arrSettingsSteps}
             renderOpenButton={renderOpenButton}
+            rememberFinished={false}
         />
     )
 }

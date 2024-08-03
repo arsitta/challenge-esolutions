@@ -6,6 +6,7 @@ interface Props {
     renderOpenButton?: (onClick: () => void) => ReactNode;
     handleFinish: () => void;
     arrStepsContent: ReactNode[];
+    rememberFinished?: boolean;
 }
 
 const NavigationPopoverButton = styled(Button)<ButtonProps>(({ theme }) => ({
@@ -22,6 +23,7 @@ export const StepsTutorialPopover = ({
     renderOpenButton,
     handleFinish,
     arrStepsContent,
+    rememberFinished,
 }: Props) => {
 
     const buttonContainerRef = useRef(null)
@@ -31,6 +33,8 @@ export const StepsTutorialPopover = ({
     const [wasFinished, setWasFinished] = useState(false)
 
     const handleShow = () => {
+        if (rememberFinished && wasFinished) return handleFinish()
+
         setCurrentStep(0)
         setOpen(true)
     }
@@ -44,6 +48,8 @@ export const StepsTutorialPopover = ({
     }
 
     const handleFinishTutorial = () => {
+        if (rememberFinished) setWasFinished(true)
+
         handleClose()
         handleFinish()
     }
