@@ -6,7 +6,7 @@ import { AppRouter } from './router/AppRouter'
 function App() {
 
   return (
-    <Box sx={{ width: "100vw" }}>
+    <Box>
       <AppRouter></AppRouter>
     </Box>
   )

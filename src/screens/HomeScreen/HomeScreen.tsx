@@ -2,7 +2,7 @@ import { Box, Container, Typography } from '@mui/material'
 
 export const HomeScreen = () => {
     return (
-        <Box component="section" sx={{ height: "100vh", backgroundColor: "#1d1c36" }} >
+        <Box component="section" sx={{ minHeight: "100vh", backgroundColor: "#1d1c36" }} >
             <Container>
                 <Typography variant='h1' color="white">
                     Home

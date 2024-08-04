@@ -15,7 +15,7 @@ export const regions: { [key: string]: RegionI } = {
     RESTO_EUROPA: { id: 5, name: "Resto Europa" },
 }
 
-interface CountryI {
+export interface CountryI {
     id: number;
     name: string,
     flagPath: string,
@@ -37,28 +37,31 @@ const countries: CountryI[] = [
 
 interface Props {
     isMultiSelect?: boolean;
+    values: CountryI[],
+    onChange: React.Dispatch<React.SetStateAction<CountryI[]>>,
 }
 
 export const CountrySelector = ({
     isMultiSelect,
+    values,
+    onChange,
 }: Props) => {
     const defaultTabSelectedId = regions.M_FRANCES.id
 
     const [selectedRegion, setSelectedRegion] = useState(defaultTabSelectedId);
-    const [selectedCountries, setSelectedCountries] = useState<number[]>([]);
 
     const handleChange = (event: React.SyntheticEvent, regionId: number) => {
         setSelectedRegion(regionId);
     };
 
     const handleAddCountry = (country: CountryI) => {
-        setSelectedCountries(st => {
-            return isMultiSelect ? [...st, country.id] : [country.id]
+        onChange(st => {
+            return isMultiSelect ? [...st, country] : [country]
         })
     }
 
     const handleRemoveCountry = (country: CountryI) => {
-        setSelectedCountries(st => st.filter(ctSelectedCountryId => ctSelectedCountryId != country.id))
+        onChange(st => st.filter(ctSelectedCountry => ctSelectedCountry.id != country.id))
     }
 
     return (
@@ -78,7 +81,7 @@ export const CountrySelector = ({
             <List sx={{ display: "grid", columnGap: 3, rowGap: 1, gridTemplateColumns: "1fr 1fr 1fr", pt: 3, }}>
                 {
                     countries.filter(ctCountry => ctCountry.regions.some(ctRegId => ctRegId == selectedRegion)).map(ctCountry => {
-                        const isCurrentCountrySelected = selectedCountries.some(ctSelectedCountryId => ctSelectedCountryId == ctCountry.id)
+                        const isCurrentCountrySelected = values.some(ctSelectedCountry => ctSelectedCountry.id == ctCountry.id)
                         return <ListItemButton
                             selected={isCurrentCountrySelected}
                             sx={{
